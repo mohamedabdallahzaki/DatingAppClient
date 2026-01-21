@@ -1,0 +1,47 @@
+<div class="card w-full bg-white rounded-lg shadow-lg flex flex-col text p-4">
+  <div class="card-title justify-center text-3xl text-primary">Sigin Up</div>
+  <div class="card-body w-full">
+    <form #registerForm="ngForm" class="flex flex-col gap-4 w-full">
+       @if (email.invalid && email.touched) {
+        <p class="text-red-500 text-start"> Email is invalid </p>
+      }
+      <input
+        type="email"
+        class="input w-full"
+        name="email"
+        [(ngModel)]="creds.email"
+        placeholder="Email"
+        required   
+        email
+        #email="ngModel"
+      />
+
+     
+
+      <input
+        type="text"
+        class="input w-full"
+        name="displayName"
+        [(ngModel)]="creds.userName"
+        placeholder="Display Name"
+        minlength="12"
+      />
+      
+      <input
+        type="password"
+        class="input w-full"
+        name="password"
+        [(ngModel)]="creds.password"
+        placeholder="Password"
+        pattern=""
+      />
+    </form>
+
+    <div class="flex flex-row gap-4 mt-1 justify-end">
+      <button (click)="Register()" class="btn btn-primary" >
+        Register
+      </button>
+      <button (click)="cancel()" class="btn btn-primary">Cancel</button>
+    </div>
+  </div>
+</div>

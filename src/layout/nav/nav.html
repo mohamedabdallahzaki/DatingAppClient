@@ -1,0 +1,132 @@
+<header class="w-full sticky top-0 z-20 bg-linear-to-r from-primary to-base-300 font-medium">
+  <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+
+    <!-- Logo -->
+    <a class="text-white text-xl flex items-center gap-3 font-semibold"
+    routerLink="/"
+   routerLinkActive="text-accent"
+    [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-8">
+        <path
+          fill-rule="evenodd"
+          d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-5.5-2.5a2.5 2.5 0 1 1-5 0
+          2.5 2.5 0 0 1 5 0ZM10 12a5.99 5.99 0 0 0-4.793 2.39
+          A6.483 6.483 0 0 0 10 16.5a6.483 6.483 0 0 0 4.793-2.11
+          A5.99 5.99 0 0 0 10 12Z"
+          clip-rule="evenodd"
+        />
+      </svg>
+      Dating App
+    </a>
+
+    <!-- Desktop Navigation -->
+     
+     @if(accountServie.currentUser()){
+       <nav class="hidden md:flex gap-6 uppercase text-white text-lg">
+        <a class="hover:text-warning" routerLink="/members" routerLinkActive="text-accent">Matches</a>
+        <a class="hover:text-warning" routerLink="/message" routerLinkActive="text-accent">Messages</a>
+        <a class="hover:text-warning" routerLink="/list" routerLinkActive="text-accent">Lists</a>
+      </nav>
+    
+     }
+
+    <!-- Desktop Login -->
+    @if (!accountServie.currentUser()) {
+      <form
+        #loginForm="ngForm"
+        (ngSubmit)="login()"
+        class="hidden lg:flex gap-2 items-center"
+      >
+        <input
+          type="text"
+          name="email"
+          [(ngModel)]="creds.email"
+          placeholder="Email"
+          class="px-3 py-1 rounded
+                 bg-white text-black
+                 focus:bg-white focus:text-black
+                 focus:outline-none"
+        />
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="creds.password"
+          placeholder="Password"
+          class="px-3 py-1 rounded
+                 bg-white text-black
+                 focus:bg-white focus:text-black
+                 focus:outline-none"
+        />
+        <button class="btn btn-primary text-white px-4">Login</button>
+      </form>
+    }
+
+    <!-- Desktop User Menu -->
+    @if (accountServie.currentUser(); as user) {
+      <div class="hidden md:flex dropdown dropdown-end">
+        <label tabindex="0" class="btn btn-ghost text-white flex items-center gap-2">
+          <img src="/user.png" class="w-8 h-8 rounded-full" />
+          <span>{{ user.displayName }}</span>
+        </label>
+
+        <ul
+          tabindex="0"
+          class="dropdown-content menu mt-2 text-black bg-white rounded-box w-52 p-2 shadow top-10 left-2"
+        >
+          <li><a>Edit Profile</a></li>
+          <li><a (click)="logout()">Logout</a></li>
+        </ul>
+      </div>
+    }
+
+    <!-- Mobile Menu Button -->
+    <button
+      class="md:hidden text-white text-2xl"
+      (click)="isMenuOpen = !isMenuOpen"
+    >
+      ☰
+    </button>
+
+  </div>
+
+  <!-- Mobile Menu -->
+  @if (isMenuOpen) {
+    <div class="md:hidden bg-black/90 text-white px-6 py-4 space-y-4">
+
+      @if (accountServie.currentUser()) {
+        <a class="block" routerLink="/members" routerLinkActive="text-accent" >Matches</a>
+        <a class="block" routerLink="/message" routerLinkActive="text-accent">Messages</a>
+        <a class="block" routerLink="/list" routerLinkActive="text-accent">Lists</a>
+        <button class="btn btn-error w-full mt-2" (click)="logout()">Logout</button>
+      }
+
+      @if (! accountServie.currentUser()) {
+        <form (ngSubmit)="login()" class="flex flex-col gap-2">
+          <input
+            type="text"
+            [(ngModel)]="creds.email"
+            name="email"
+            placeholder="Email"
+            class="px-3 py-2 rounded
+                   bg-white text-black
+                   focus:bg-white focus:text-black
+                   focus:outline-none"
+          />
+          <input
+            type="password"
+            [(ngModel)]="creds.password"
+            name="password"
+            placeholder="Password"
+            class="px-3 py-2 rounded
+                   bg-white text-black
+                   focus:bg-white focus:text-black
+                   focus:outline-none"
+          />
+          <button class="btn btn-primary text-white">Login</button>
+        </form>
+      }
+
+    </div>
+  }
+</header>
