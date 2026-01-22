@@ -6,15 +6,16 @@ import {
 } from '@angular/core';
 import { provideRouter, Router, withViewTransitions } from '@angular/router';
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { Init } from '../core/services/init';
 import { lastValueFrom } from 'rxjs';
+import { errorInterceptorInterceptor } from '../core/interceptor/error-interceptor-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes,withViewTransitions()),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([errorInterceptorInterceptor])),
     provideAppInitializer(async () => {
       const initService = inject(Init);
 

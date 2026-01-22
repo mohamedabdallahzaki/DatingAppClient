@@ -1,0 +1,45 @@
+<div class="min-h-1/2 w-10/12 flex items-center justify-center mx-auto
+            bg-linear-to-br from-slate-900 via-blue-950 to-black 
+            text-white px-4 py-10 rounded-2xl">
+
+  <div class="text-center space-y-4 sm:space-y-6 
+              p-6 sm:p-10 
+              rounded-2xl bg-white/5 backdrop-blur-md shadow-2xl 
+              w-full max-w-md sm:max-w-lg">
+
+    <h1 class="text-4xl sm:text-7xl font-extrabold text-blue-500 drop-shadow-lg">
+      404
+    </h1>
+
+    <p class="text-lg sm:text-2xl font-semibold tracking-wide">
+      Page Not Found
+    </p>
+
+    <p class="text-sm sm:text-base text-gray-200 max-w-md mx-auto leading-relaxed">
+      Sorry, the page you are looking for doesn't exist or has been moved.
+    </p>
+
+    <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 pt-4">
+
+      <button
+        (click)="goBack()"
+        class="w-full sm:w-auto px-5 py-3 rounded-lg 
+               bg-gray-700 hover:bg-gray-600 transition text-white 
+               text-sm sm:text-base"
+      >
+        Go Back
+      </button>
+
+      <a
+        routerLink="/"
+        class="w-full sm:w-auto px-6 py-3 rounded-lg 
+               bg-blue-500 text-black font-semibold 
+               hover:bg-blue-400 transition text-sm sm:text-base"
+      >
+        Home
+      </a>
+
+    </div>
+
+  </div>
+</div>
