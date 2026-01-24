@@ -27,7 +27,7 @@ export class Nav {
       },
       error: (err) => {
         console.log(err)
-        this.toast.error(err.message, 4000);
+        // this.toast.error(err.message, 4000);
       },
     });
   }

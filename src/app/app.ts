@@ -7,6 +7,8 @@ import { Account } from '../core/services/account';
 import { HomePage } from '../features/home-page/home-page';
 import { routes } from './app.routes';
 import { NgClass } from '@angular/common';
+import { Init } from '../core/services/init';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -15,27 +17,18 @@ import { NgClass } from '@angular/common';
   styleUrl: './app.css'
 })
 export class App implements OnInit{
-  accountService = inject(Account)
+  initService = inject(Init)
   router = inject(Router)
   protected members = signal<any>([])
   constructor(private http:HttpClient){}
   ngOnInit(): void {
-    this.http.get("https://localhost:5001/api/members").subscribe({
-      next: members => this.members.set(members),
-      error: err => console.log(err),
-      complete: () => console.log("ok")
-    })
-    this.setCurrentUser();
+
+   lastValueFrom( this.initService.init());
   }
 
-  setCurrentUser(){
-    const userString = localStorage.getItem("user")  ;
-    if(!userString) return;
 
-    const user = JSON.parse(userString);
-    this.accountService.currentUser.set(user);
   
-  }
+ 
 
   title:string =  "Dating App";
 

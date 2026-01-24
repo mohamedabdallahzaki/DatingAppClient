@@ -1,0 +1,15 @@
+@if (member() ; as member) {
+  <div class="card  "
+  [routerLink]="['/members/',member.id]"
+  >
+   <img [src]="member.imageUrl" [alt]="member.displayName" class="rounded-b-2xl ">
+  <div class=" card-actions bg-black absolute bottom-0 p-3 rounded-b-lg w-full">
+    <div class="flex flex-col text-white">
+      <span>{{member.displayName}}</span>
+      <span>{{25}}</span>
+    </div>
+  </div>
+   
+
+  </div>
+}

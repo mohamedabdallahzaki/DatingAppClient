@@ -1,13 +1,13 @@
-<div class="card w-full bg-white rounded-lg shadow-lg flex flex-col text p-4">
-  <div class="card-title justify-center text-3xl text-primary">Sigin Up</div>
+<div class="card w-full max-w-full bg-white rounded-lg shadow-lg flex flex-col text p-4 mx-auto my-6">
+  <div class="card-title justify-center text-2xl sm:text-3xl text-primary text-center mb-4">Sigin Up</div>
   <div class="card-body w-full">
     <form #registerForm="ngForm" class="flex flex-col gap-4 w-full">
        @if (email.invalid && email.touched) {
-        <p class="text-red-500 text-start"> Email is invalid </p>
+        <p class="text-red-500 text-start text-sm"> Email is invalid </p>
       }
       <input
         type="email"
-        class="input w-full"
+        class="input w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
         name="email"
         [(ngModel)]="creds.email"
         placeholder="Email"
@@ -16,11 +16,9 @@
         #email="ngModel"
       />
 
-     
-
       <input
         type="text"
-        class="input w-full"
+        class="input w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
         name="displayName"
         [(ngModel)]="creds.userName"
         placeholder="Display Name"
@@ -29,7 +27,7 @@
       
       <input
         type="password"
-        class="input w-full"
+        class="input w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
         name="password"
         [(ngModel)]="creds.password"
         placeholder="Password"
@@ -37,11 +35,11 @@
       />
     </form>
 
-    <div class="flex flex-row gap-4 mt-1 justify-end">
-      <button (click)="Register()" class="btn btn-primary" >
+    <div class="flex flex-col sm:flex-row gap-4 mt-4 justify-end">
+      <button (click)="Register()" class="btn btn-primary w-full sm:w-auto">
         Register
       </button>
-      <button (click)="cancel()" class="btn btn-primary">Cancel</button>
+      <button (click)="cancel()" class="btn btn-primary w-full sm:w-auto">Cancel</button>
     </div>
   </div>
 </div>

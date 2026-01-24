@@ -1,1 +1,19 @@
-<p>members-detalied works!</p>
+@if(member$ | async ; as member){
+   <!-- city-card.component.html -->
+<div class="max-w-sm mx-auto bg-white shadow-lg rounded-xl overflow-hidden">
+  <img class="w-full h-48 object-cover" [src]="member.imageUrl" [alt]="member.displayName">
+
+  <div class="p-6">
+    <h2 class="text-2xl font-bold mb-2">{{ member.displayName }}</h2>
+    <p class="text-sm text-gray-500 mb-2">Gender: {{ member.gender }}</p>
+    <p class="text-sm text-gray-500 mb-2">Country: {{ member.country }}</p>
+    <p class="text-sm text-gray-500 mb-2">City: {{ member.city || 'Celeryville' }}</p>
+    <p class="text-sm text-gray-500 mb-2">Date of Birth: {{ member.dateOfBrith | date:'longDate' }}</p>
+    <p class="text-sm text-gray-500 mb-2">Member since: {{ member.createAt | date:'longDate' }}</p>
+    <p class="text-sm text-gray-400 mb-4">Last Active: {{ member.lastActive | date:'longDate' }}</p>
+
+    <p class="text-gray-700 text-sm">{{ member.description }}</p>
+  </div>
+</div>
+
+}
