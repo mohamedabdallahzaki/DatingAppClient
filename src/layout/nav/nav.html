@@ -1,13 +1,13 @@
-<header class="w-full sticky top-0 z-20 bg-linear-to-r from-primary to-base-300 font-medium">
-  <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+<header class="w-full sticky top-0 z-20 bg-linear-to-r from-primary via-primary/95 to-base-300 font-medium shadow-lg backdrop-blur-sm border-b border-white/10">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
     <!-- Logo -->
-    <a class="text-white text-xl flex items-center gap-3 font-semibold "  
+    <a class="text-white text-xl flex items-center gap-3 font-semibold hover:text-accent transition-colors duration-300 group"  
     routerLink="/"
    routerLinkActive="text-accent "
     [routerLinkActiveOptions]="{ exact: true }"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-8">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-8 group-hover:scale-110 transition-transform duration-300">
         <path
           fill-rule="evenodd"
           d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-5.5-2.5a2.5 2.5 0 1 1-5 0
@@ -17,16 +17,25 @@
           clip-rule="evenodd"
         />
       </svg>
-      Dating App
+      <span class="hidden sm:inline">Dating App</span>
     </a>
 
  
      
      @if(accountServie.currentUser()){
-       <nav class="hidden md:flex gap-6 uppercase text-white text-lg">
-        <a class="hover:text-warning" routerLink="/members" routerLinkActive="text-accent">Matches</a>
-        <a class="hover:text-warning" routerLink="/message" routerLinkActive="text-accent">Messages</a>
-        <a class="hover:text-warning" routerLink="/list" routerLinkActive="text-accent">Lists</a>
+       <nav class="hidden md:flex gap-6 uppercase text-white text-base font-medium">
+        <a class="hover:text-warning transition-colors duration-300 relative group" routerLink="/members" routerLinkActive="text-accent">
+          <span class="relative z-10">Matches</span>
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-warning transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a class="hover:text-warning transition-colors duration-300 relative group" routerLink="/message" routerLinkActive="text-accent">
+          <span class="relative z-10">Messages</span>
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-warning transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a class="hover:text-warning transition-colors duration-300 relative group" routerLink="/list" routerLinkActive="text-accent">
+          <span class="relative z-10">Lists</span>
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-warning transition-all duration-300 group-hover:w-full"></span>
+        </a>
       </nav>
     
      }
@@ -34,97 +43,117 @@
       <form
         #loginForm="ngForm"
         (ngSubmit)="login()"
-        class="hidden lg:flex gap-2 items-center"
+        class="hidden lg:flex gap-3 items-center"
       >
         <input
           type="text"
           name="email"
           [(ngModel)]="creds.email"
           placeholder="Email"
-          class="px-3 py-1 rounded
-                 bg-white text-black
+          class="px-4 py-2 rounded-lg
+                 bg-white/95 backdrop-blur-sm text-black
+                 border border-white/20
                  focus:bg-white focus:text-black
-                 focus:outline-none"
+                 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent
+                 transition-all duration-300
+                 placeholder:text-gray-500"
         />
         <input
           type="password"
           name="password"
           [(ngModel)]="creds.password"
           placeholder="Password"
-          class="px-3 py-1 rounded
-                 bg-white text-black
+          class="px-4 py-2 rounded-lg
+                 bg-white/95 backdrop-blur-sm text-black
+                 border border-white/20
                  focus:bg-white focus:text-black
-                 focus:outline-none"
+                 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent
+                 transition-all duration-300
+                 placeholder:text-gray-500"
         />
-        <button class="btn btn-primary text-white px-4">Login</button>
+        <button class="btn btn-primary text-white px-6 hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-xl">Login</button>
       </form>
     }
 
     <!-- Desktop User Menu -->
     @if (accountServie.currentUser(); as user) {
       <div class="hidden md:flex dropdown dropdown-end">
-        <label tabindex="0" class="btn btn-ghost text-white flex items-center gap-2">
-          <span class="inline-block mr-1 font-bold ">{{ user.displayName }}</span>
-          <img [src]="user.imageUrl ?? '/user.png'" class="w-8 h-8 rounded-full" />
+        <label tabindex="0" class="btn btn-ghost text-white flex items-center gap-3 hover:bg-white/10 transition-colors duration-300 rounded-full px-3 py-2">
+          <span class="inline-block font-semibold">{{ user.displayName }}</span>
+          <img [src]="user.imageUrl ?? '/user.png'" class="w-10 h-10 rounded-full ring-2 ring-white/30 hover:ring-accent transition-all duration-300 object-cover" />
         </label>
 
         <ul
           tabindex="0"
-          class="dropdown-content menu mt-2 text-black bg-white rounded-box w-52 p-2 shadow top-10 left-2"
+          class="dropdown-content menu mt-3 text-black bg-white rounded-xl w-52 p-2 shadow-2xl border border-gray-100 backdrop-blur-sm"
         >
-          <li><a>Edit Profile</a></li>
-          <li><a (click)="logout()">Logout</a></li>
+          <li><a class="hover:bg-primary/10 hover:text-primary rounded-lg transition-colors duration-200">Edit Profile</a></li>
+          <li><a (click)="logout()" class="hover:bg-error/10 hover:text-error rounded-lg transition-colors duration-200">Logout</a></li>
         </ul>
       </div>
     }
 
     <!-- Mobile Menu Button -->
     <button
-      class="md:hidden text-white text-2xl"
+      class="md:hidden text-white text-2xl hover:text-accent transition-colors duration-300 p-2 rounded-lg hover:bg-white/10"
       (click)="isMenuOpen = !isMenuOpen"
+      [attr.aria-label]="isMenuOpen ? 'Close menu' : 'Open menu'"
     >
-      ☰
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
     </button>
 
   </div>
 
   <!-- Mobile Menu -->
   @if (isMenuOpen) {
-    <div class="md:hidden bg-black/90 text-white px-6 py-4 space-y-4">
-
-      @if (accountServie.currentUser()) {
-        <a class="block" routerLink="/members" routerLinkActive="text-accent" >Matches</a>
-        <a class="block" routerLink="/message" routerLinkActive="text-accent">Messages</a>
-        <a class="block" routerLink="/list" routerLinkActive="text-accent">Lists</a>
-        <button class="btn btn-error w-full mt-2" (click)="logout()">Logout</button>
+    <div class="md:hidden bg-linear-to-b from-black/95 to-black/90 backdrop-blur-md text-white px-6 py-6 space-y-4 border-t border-white/10 animate-slideDown">
+      @if (accountServie.currentUser(); as user) {
+        <div class="flex items-center gap-3 pb-4 border-b border-white/20 mb-4">
+          <img [src]="user.imageUrl ?? '/user.png'" class="w-12 h-12 rounded-full ring-2 ring-accent object-cover" />
+          <div>
+            <p class="font-semibold">{{ user.displayName }}</p>
+            <p class="text-sm text-gray-400">Online</p>
+          </div>
+        </div>
+        <a class="block py-3 px-4 rounded-lg hover:bg-white/10 transition-colors duration-200 border-l-4 border-transparent hover:border-accent" routerLink="/members" routerLinkActive="text-accent bg-white/10 border-accent" (click)="isMenuOpen = false">Matches</a>
+        <a class="block py-3 px-4 rounded-lg hover:bg-white/10 transition-colors duration-200 border-l-4 border-transparent hover:border-accent" routerLink="/message" routerLinkActive="text-accent bg-white/10 border-accent" (click)="isMenuOpen = false">Messages</a>
+        <a class="block py-3 px-4 rounded-lg hover:bg-white/10 transition-colors duration-200 border-l-4 border-transparent hover:border-accent" routerLink="/list" routerLinkActive="text-accent bg-white/10 border-accent" (click)="isMenuOpen = false">Lists</a>
+        <button class="btn btn-error w-full mt-4 hover:scale-105 transition-transform duration-300" (click)="logout()">Logout</button>
       }
 
       @if (! accountServie.currentUser()) {
-        <form (ngSubmit)="login()" class="flex flex-col gap-2">
+        <form (ngSubmit)="login()" class="flex flex-col gap-3">
           <input
             type="text"
             [(ngModel)]="creds.email"
             name="email"
             placeholder="Email"
-            class="px-3 py-2 rounded
-                   bg-white text-black
+            class="px-4 py-3 rounded-lg
+                   bg-white/95 text-black
+                   border border-white/20
                    focus:bg-white focus:text-black
-                   focus:outline-none"
+                   focus:outline-none focus:ring-2 focus:ring-accent
+                   transition-all duration-300
+                   placeholder:text-gray-500"
           />
           <input
             type="password"
             [(ngModel)]="creds.password"
             name="password"
             placeholder="Password"
-            class="px-3 py-2 rounded
-                   bg-white text-black
+            class="px-4 py-3 rounded-lg
+                   bg-white/95 text-black
+                   border border-white/20
                    focus:bg-white focus:text-black
-                   focus:outline-none"
+                   focus:outline-none focus:ring-2 focus:ring-accent
+                   transition-all duration-300
+                   placeholder:text-gray-500"
           />
-          <button class="btn btn-primary text-white">Login</button>
+          <button class="btn btn-primary text-white hover:scale-105 transition-transform duration-300 shadow-lg">Login</button>
         </form>
       }
-
     </div>
   }
 </header>

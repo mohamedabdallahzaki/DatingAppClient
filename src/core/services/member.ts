@@ -15,19 +15,14 @@ export class Member {
  accountService  = inject(Account)
  
  getMembers(){
-    return this.http.get<member[]>(this.baseUrl + 'members' ,this.getHttpOptions())
+    return this.http.get<member[]>(this.baseUrl + 'members')
  }
 
  getMemberById(id:string){
-     return this.http.get<member>(`${this.baseUrl}members/${id}`, this.getHttpOptions());
+     return this.http.get<member>(`${this.baseUrl}members/${id}`);
  }
 
- getHttpOptions(){
-    return {
-        headers: new HttpHeaders({
-            Authorization:`Bearer ${this.accountService.currentUser()?.token}`
-        })
-    } 
- }
+
+ 
 
 }

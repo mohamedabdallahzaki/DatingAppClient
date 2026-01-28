@@ -1,8 +1,9 @@
 <app-nav></app-nav>
 
-<div [class.mt-24]="router.url !== '/'"
+<div 
      [class.mx-auto]="router.url !=='/'"
-     [class.container]="router.url !=='/'">
-    
+     [class.container-fluid]="router.url !=='/'"
+     class="mx-2 min-h-screen"
+     >
     <router-outlet></router-outlet>
 </div>

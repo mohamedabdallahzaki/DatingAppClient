@@ -3,12 +3,14 @@ import { inject, Injectable, signal } from '@angular/core';
 import { LoginCreds, RegisterCreds, User } from '../../types/user';
 import { tap } from 'rxjs';
 import { environment } from '../../environments/environment.development';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Account {
   protected http = inject(HttpClient);
+  private route = inject(Router)
  private baseUrl = environment.baseUrl
   currentUser = signal<User | null>(null);
 
@@ -40,5 +42,6 @@ export class Account {
   logout() {
     localStorage.removeItem('user');
     this.currentUser.set(null);
+    this.route.navigateByUrl('/')
   }
 }

@@ -3,7 +3,9 @@ import { Register } from "../account/register/register";
 
 @Component({
   selector: 'app-home-page',
-  imports: [Register],
+  imports: [Register
+    
+  ],
   templateUrl: './home-page.html',
   styleUrl: './home-page.css',
 })

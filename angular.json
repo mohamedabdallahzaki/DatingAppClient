@@ -11,7 +11,6 @@
       "schematics": {
         "@schematics/angular:component": {
           "skipTests": true
-          
         },
         "@schematics/angular:service": {
           "skipTests": true,
@@ -20,13 +19,11 @@
         "@schematics/angular:guard": {
           "skipTests": true,
           "path": "src/core/guards"
-
         },
         "@schematics/angular:interceptor": {
           "skipTests": true,
           "path": "src/core/interceptor"
         }
-
       },
       "root": "",
       "sourceRoot": "src",
@@ -91,6 +88,17 @@
         },
         "test": {
           "builder": "@angular/build:unit-test"
+        },
+        "e2e": {
+          "builder": "playwright-ng-schematics:playwright",
+          "options": {
+            "devServerTarget": "DatingClient:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "DatingClient:serve:production"
+            }
+          }
         }
       }
     }

@@ -1,15 +1,28 @@
-@if (member() ; as member) {
-  <div class="card  "
-  [routerLink]="['/members/',member.id]"
+@if (member(); as member) {
+  <div
+    class="card cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-3 hover:shadow-2xl group overflow-hidden rounded-2xl border border-gray-200 hover:border-primary/50 bg-white"
+    [routerLink]="['/members/', member.id]"
   >
-   <img [src]="member.imageUrl" [alt]="member.displayName" class="rounded-b-2xl ">
-  <div class=" card-actions bg-black absolute bottom-0 p-3 rounded-b-lg w-full">
-    <div class="flex flex-col text-white">
-      <span>{{member.displayName}}</span>
-      <span>{{25}}</span>
+    <div class="relative overflow-hidden">
+      <img 
+        [src]="member.imageUrl" 
+        [alt]="member.displayName" 
+        class="w-full h-80 object-cover rounded-t-2xl group-hover:scale-110 transition-transform duration-500" 
+      />
+      <div class="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
     </div>
-  </div>
-   
-
+    <div class="card-actions absolute bottom-0 p-4 
+    bg-linear-to-t from-black via-black/90 to-transparent 
+    rounded-b-lg w-full backdrop-blur-sm">
+      <div class="flex flex-col text-white">
+        <span class="text-xl font-bold mb-1 drop-shadow-lg">{{ member.displayName }}</span>
+        <span class="text-sm text-gray-300 flex items-center gap-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clip-rule="evenodd" />
+          </svg>
+          {{ 25 }} years old
+        </span>
+      </div>
+    </div>
   </div>
 }

@@ -1,4 +1,4 @@
-import { Component, inject, output } from '@angular/core';
+import { Component, EventEmitter, inject, Output, output } from '@angular/core';
 import { RegisterCreds } from '../../../types/user';
 import { FormsModule, NgModel } from '@angular/forms';
 import { Account } from '../../../core/services/account';
@@ -14,7 +14,8 @@ export class Register {
   accountService = inject(Account)
   
   creds = {} as RegisterCreds;
-  cancelRegister= output<boolean>();
+ @Output() cancelRegister = new EventEmitter<boolean>();
+
 
   Register(){
     this.accountService.register(this.creds).subscribe({

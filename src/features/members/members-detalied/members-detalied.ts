@@ -23,15 +23,11 @@ export class MembersDetalied {
  constructor(){
    const id: string = this.router.snapshot.params['id'];
     this.member$ = this.memberservice.getMemberById(id);
-    this.member$.subscribe({
-      next : m=>{
-        console.log(m)
-      }
-    })
+ }
  }
 
   
 
 
 
-}
+
