@@ -1,85 +1,69 @@
-<section class="flex flex-col lg:flex-row gap-6 p-4 md:p-8 min-h-screen bg-linear-to-br from-base-100 to-base-200">
-  @if(member$ | async; as member){
+<section class="flex flex-col lg:flex-row gap-6 p-4  min-h-screen shadow-2xl">
+  @if( memberservice.member() ;as member ){
     <!-- Card Component -->
-    <div class=" max-w-full lg:max-w-md bg-white shadow-2xl rounded-2xl overflow-hidden border border-gray-100 hover:shadow-3xl transition-shadow duration-300">
+    <div class=" lg:w-1/4  sm:flex-1 w-full  lg:max-w-md  p-2 r bg-white shadow-2xl rounded-2xl overflow-hidden border  hover:shadow-3xl transition-shadow duration-300">
       <div class="relative">
-        <img class="w-full h-80 object-cover" [src]="member.imageUrl" [alt]="member.displayName">
-        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold text-primary shadow-lg">
-          Online
-        </div>
+        <img class="w-full h-80 object-cover rounded-4xl" [src]="member.imageUrl" [alt]="member.displayName">
+     
       </div>
 
       <div class="p-6 md:p-8">
         <h2 class="text-3xl font-bold mb-4 text-gray-800">{{ member.displayName }}</h2>
         
-        <div class="space-y-3 mb-6">
-          <div class="flex items-center gap-3 text-gray-600">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-primary">
-              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-5.5-2.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zM10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-            </svg>
-            <span class="font-medium">Gender:</span>
-            <span>{{ member.gender }}</span>
-          </div>
+       
           
           <div class="flex items-center gap-3 text-gray-600">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-primary">
               <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
             </svg>
             <span class="font-medium">Location:</span>
-            <span>{{ member.city || 'Celeryville' }}, {{ member.country }}</span>
+            <span class="w-fit">{{ member.city || 'Celeryville' }},{{member.country.slice(0,9) || 'Unknown' }}</span>
           </div>
           
           <div class="flex items-center gap-3 text-gray-600">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-primary">
               <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
             </svg>
-            <span class="font-medium">Date of Birth:</span>
-            <span>{{ member.dateOfBrith | date:'longDate' }}</span>
+            <span class="font-medium">Age: </span>
+            <span>{{member.dateOfBirth | pipeage}} </span>
           </div>
           
-          <div class="flex items-center gap-3 text-gray-600">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-primary">
-              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
-            </svg>
-            <span class="font-medium">Member since:</span>
-            <span>{{ member.createAt | date:'longDate' }}</span>
-          </div>
+         <div class="divider bg-black h-0.5 "></div>
+           <ul class="menu rounded-box text-xl w-full text-black mb-4"> 
+          <li><a routerLink="profile" routerLinkActive="text-primary " class="hover:bg-gray-300">Profile</a></li>
+          <li><a routerLink="message" routerLinkActive="text-primary" class="hover:bg-gray-300">Message</a></li>
+          <li><a routerLink="photos"  routerLinkActive="text-primary" class="hover:bg-gray-300">Photos</a></li>
+         </ul>
+        
           
-          <div class="flex items-center gap-3 text-gray-500 text-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-primary">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
-            </svg>
-            <span>Last Active: {{ member.lastActive | date:'longDate' }}</span>
-          </div>
+         <div class="card-actions justify-between gap-2 mb-3 ">
+          <button class="btn btn-info flex-1" >Go back</button>
+          <button class="btn btn-primary flex-1" >Like user</button>
+         </div>
         </div>
 
-        <div class="border-t border-gray-200 pt-6">
-          <h3 class="text-lg font-semibold mb-3 text-gray-800">About</h3>
-          <p class="text-gray-700 leading-relaxed">{{ member.description }}</p>
-        </div>
+       
       </div>
-    </div>
+    
 
-    <!-- Sidebar / Extra Info -->
-    <div class="flex-1 lg:flex-2 bg-linear-to-br from-primary to-base-300 text-white p-6 md:p-8 rounded-2xl shadow-2xl border border-white/10">
-      <div class="h-full flex flex-col justify-center">
-        <h3 class="text-2xl font-bold mb-6 flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6">
-            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-          </svg>
-          Location Details
-        </h3>
-        <div class="space-y-4">
-          <div class="bg-white/10 backdrop-blur-sm p-4 rounded-xl border border-white/20">
-            <p class="text-sm text-white/80 mb-1">Country</p>
-            <p class="text-xl font-semibold">{{ member.country }}</p>
-          </div>
-          <div class="bg-white/10 backdrop-blur-sm p-4 rounded-xl border border-white/20">
-            <p class="text-sm text-white/80 mb-1">City</p>
-            <p class="text-xl font-semibold">{{ member.city || 'Not specified' }}</p>
-          </div>
+    <!-- Sidebar / Extra Info -->  
+     <div class="lg:w-3/4 sm:w-full card  bg-white shadow-2xl  rounded-2xl overflow-hidden border  hover:shadow-3xl transition-shadow duration-300">
+        <div class="flex flex-row justify-between items-center">
+          <p class="m-4 text-3xl font-bold  text-primary" >{{title()}} </p>
+          @if (isCurrentUser()) {
+            <button 
+             (click)="memberservice.editMode.set(!memberservice.editMode())"
+            class="btn btn-primary btn-outline mr-5"
+            >
+            {{memberservice.editMode() ? "Cancel" : "Edit"}}
+          </button>
+          }
         </div>
-      </div>
-    </div>
+        <div class="divider h-0.5 m-2  bg-black"> </div>
+         <router-outlet class="text-black m-4"></router-outlet>
+     </div>
+  }
+  @else {
+    <p>Member Not Found</p>
   }
 </section>

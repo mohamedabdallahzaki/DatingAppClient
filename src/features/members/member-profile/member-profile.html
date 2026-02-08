@@ -1,0 +1,90 @@
+@if(memberService.member(); as member){
+ <div class="flex flex-col gap-3 text-black ml-2">
+    <div class="flex gap-3 flex-col">
+    <span class="font-semibold ">Member Since :</span>
+     <span >{{member.createAt | date : 'longDate' }}</span>
+     <span class="font-semibold ">Last Active :</span>
+     <span >{{member.lastActive  | date : 'd MMM yyy h:mm a ' }}</span>
+    </div>
+    <h3 class="text-lg text-primary font-semibold">{{member.displayName}}</h3>
+    @if(memberService.editMode()){
+   <form
+  #editForm="ngForm"
+  (ngSubmit)="updateProfile()"
+  class="flex flex-col gap-4 w-full p-4 bg-white rounded-lg shadow-md"
+
+>
+
+  <label class="flex flex-col text-black">
+    <span class="font-semibold mb-1">Display Name:</span>
+    <input
+      type="text"
+      name="displayName"
+      class="input w-3/4 bg-white border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+      [(ngModel)]="editableMember.displayName"
+      placeholder="Display Name"
+    
+    >
+   
+  </label>
+
+  <!-- Description -->
+  <label class="flex flex-col text-black">
+    <span class="font-semibold mb-1">Description:</span>
+    <textarea
+      name="description"
+      class="input w-3/4 h-48 bg-white whitespace-pre-line
+       border-gray-300 rounded-md shadow-sm resize-none focus:ring-primary focus:border-primary"
+      [(ngModel)]="editableMember.description"
+      placeholder="Description"
+      
+    ></textarea>
+    
+  </label>
+
+
+  <label class="flex flex-col text-black">
+    <span class="font-semibold mb-1">Country:</span>
+    <input
+      type="text"
+      name="country"
+      class="input w-3/4 bg-white border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+      [(ngModel)]="editableMember.country"
+      placeholder="Country"
+    
+    >
+   
+  </label>
+
+ 
+  <label class="flex flex-col text-black">
+    <span class="font-semibold mb-1">City:</span>
+    <input
+      type="text"
+      name="city"
+      class="input w-3/4 bg-white border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+      [(ngModel)]="editableMember.city"
+      placeholder="City"
+      required
+    >
+    
+  </label>
+
+  <div class=" w-3/4 flex justify-end mt-4">
+    <button
+      type="submit"
+      class="btn btn-success px-6 py-2 rounded-md hover:bg-green-600 transition-colors"
+      [disabled]="!editForm.dirty"
+    >
+      Submit
+    </button>
+  </div>
+
+</form>
+
+    }
+    @else {
+      <div>{{member.description }}</div>
+    }
+ </div>
+}

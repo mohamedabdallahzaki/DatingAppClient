@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Member } from '../../../core/services/member';
+import { MemberService } from '../../../core/services/member';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { member } from '../../../types/member';
@@ -12,7 +12,7 @@ import { MemberCard } from "../member-card/member-card";
   styleUrl: './members-list.css',
 })
 export class MembersList {
-  private memberService = inject(Member)
+  private memberService = inject(MemberService)
 
    members$ : Observable<member[]> ;
 

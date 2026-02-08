@@ -11,12 +11,13 @@ import { Init } from '../core/services/init';
 import { lastValueFrom } from 'rxjs';
 import { errorInterceptorInterceptor } from '../core/interceptor/error-interceptor-interceptor';
 import { jwtTokenInterceptor } from '../core/interceptor/jwt-token-interceptor';
+import { loadingInterceptorInterceptor } from '../core/interceptor/loading-interceptor-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes,withViewTransitions()),
-    provideHttpClient(withInterceptors([errorInterceptorInterceptor, jwtTokenInterceptor])),
+    provideHttpClient(withInterceptors([errorInterceptorInterceptor, jwtTokenInterceptor,loadingInterceptorInterceptor])),
     provideAppInitializer(async () => {
       const initService = inject(Init);
 

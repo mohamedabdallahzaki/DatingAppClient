@@ -1,6 +1,6 @@
 export  interface member {
-  id: string
-  dateOfBrith: string
+  id:string
+  dateOfBirth:string
   displayName: string
   createAt: string
   lastActive: string
@@ -16,4 +16,10 @@ export interface photo {
   publicId: any
   memberId: string
   member: any
+}
+export type EditableMember = {
+  displayName: string | undefined
+  description?: string
+  city: string
+  country: string
 }

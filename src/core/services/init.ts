@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Account } from './account';
-import { Observable, of } from 'rxjs';
-import { Router } from '@angular/router';
+import {  of } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class Init {
   
   accountService = inject(Account)
-  router = inject(Router)
+ 
 
   init() {
      const userString = localStorage.getItem("user")  ;

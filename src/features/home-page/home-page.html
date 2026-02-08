@@ -25,9 +25,11 @@
       </p>
 
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8 animate-slideUp delay-300">
-        <button (click)="Registered(true)" class="btn btn-primary btn-lg px-8 hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
+        @if(!accountService.currentUser()){
+          <button (click)="Registered(true)" class="btn btn-primary btn-lg px-8 hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
           Register
         </button>
+        }
         <button class="btn btn-outline btn-info btn-lg px-8 hover:scale-105 transition-all duration-300 border-2">
           Learn more
         </button>

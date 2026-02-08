@@ -13,7 +13,7 @@ export const authGuard: CanActivateFn = (route, state) => {
  }
  else{
   routing.navigate(['/'],{queryParams:{returnUrl:state.url}})
-  toast.error("you cann't go ",5000)
+  toast.error("you cann't go ",2000)
   return false;
  }
 

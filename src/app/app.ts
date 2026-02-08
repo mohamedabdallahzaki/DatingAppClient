@@ -22,8 +22,6 @@ export class App implements OnInit{
   protected members = signal<any>([])
   constructor(private http:HttpClient){}
   ngOnInit(): void {
-
-   lastValueFrom( this.initService.init());
   }
 
 

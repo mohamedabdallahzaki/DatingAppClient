@@ -4,25 +4,37 @@ import { LoginCreds, RegisterCreds, User } from '../../types/user';
 import { tap } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { Account } from '../../core/services/account';
-import { member } from '../../types/member';
+import { EditableMember, member, photo } from '../../types/member';
 
 @Injectable({
   providedIn: 'root',
 })
-export class Member {
+export class MemberService {
   protected http = inject(HttpClient);
  private baseUrl = environment.baseUrl
+  member = signal<member | null>(null)
  accountService  = inject(Account)
+ editMode = signal(false);
+
  
  getMembers(){
     return this.http.get<member[]>(this.baseUrl + 'members')
  }
 
  getMemberById(id:string){
-     return this.http.get<member>(`${this.baseUrl}members/${id}`);
+     return this.http.get<member>(`${this.baseUrl}members/${id}`).pipe(
+      tap(member =>{
+        this.member.set(member)
+      } )
+     )
  }
 
+ getMemberPhotos(id:string){
+   return this.http.get<photo[]>(`${this.baseUrl}members/${id}/photos`)
+ }
 
- 
+ updateMember(editMember:EditableMember){
+  return this.http.put (this.baseUrl+"members",editMember)
+ }
 
 }

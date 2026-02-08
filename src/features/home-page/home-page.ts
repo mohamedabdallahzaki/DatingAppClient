@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Register } from "../account/register/register";
+import { Account } from '../../core/services/account';
 
 @Component({
   selector: 'app-home-page',
@@ -10,6 +11,9 @@ import { Register } from "../account/register/register";
   styleUrl: './home-page.css',
 })
 export class HomePage {
+
+  accountService = inject(Account)
+
   registered = signal(false);
 
   Registered(value:boolean){
