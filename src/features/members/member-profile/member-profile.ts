@@ -14,7 +14,7 @@ import { Account } from '../../../core/services/account';
   styleUrl: './member-profile.css',
 })
 export class MemberProfile implements OnInit ,OnDestroy{
- @ViewChild('editForm') editForm?:NgForm ;
+@ViewChild('editForm') editForm?:NgForm ;
 @HostListener('window:beforeunload', ['$event'])
 notify(event: BeforeUnloadEvent) {
   if (this.editForm?.dirty) {
@@ -40,10 +40,8 @@ protected accountService = inject(Account)
     }
   }
 
-  updateProfile(){
-    if(!this.editableMember) return;
-     
-    
+updateProfile(){
+    if(!this.editableMember) return; 
     const updateMember = {...this.memberService.member(),...this.editableMember}
    const currentUser = this.accountService.currentUser();
 if (currentUser && updateMember.displayName && currentUser.displayName !== updateMember.displayName) {

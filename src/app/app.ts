@@ -3,12 +3,8 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { Router, RouterOutlet } from '@angular/router';
 import { Nav } from "../layout/nav/nav";
-import { Account } from '../core/services/account';
-import { HomePage } from '../features/home-page/home-page';
-import { routes } from './app.routes';
-import { NgClass } from '@angular/common';
 import { Init } from '../core/services/init';
-import { lastValueFrom } from 'rxjs';
+
 
 @Component({
   selector: 'app-root',
@@ -23,10 +19,6 @@ export class App implements OnInit{
   constructor(private http:HttpClient){}
   ngOnInit(): void {
   }
-
-
-  
- 
 
   title:string =  "Dating App";
 

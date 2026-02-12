@@ -1,10 +1,11 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, Directive, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Account } from '../../core/services/account';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Toast } from '../../core/services/toast';
 import { themes } from './theme';
 import { LoadingService } from '../../core/services/loading-service';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-nav',
@@ -45,7 +46,6 @@ export class Nav {
       },
       error: (err) => {
         console.log(err)
-        // this.toast.error(err.message, 4000);
       },
     });
   }

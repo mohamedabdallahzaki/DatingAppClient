@@ -11,10 +11,10 @@ import { EditableMember, member, photo } from '../../types/member';
 })
 export class MemberService {
   protected http = inject(HttpClient);
- private baseUrl = environment.baseUrl
+  private baseUrl = environment.baseUrl
   member = signal<member | null>(null)
- accountService  = inject(Account)
- editMode = signal(false);
+  accountService  = inject(Account)
+  editMode = signal(false);
 
  
  getMembers(){
@@ -35,6 +35,20 @@ export class MemberService {
 
  updateMember(editMember:EditableMember){
   return this.http.put (this.baseUrl+"members",editMember)
+ }
+
+ uploadPhoto(file:File){
+  const formData = new FormData();
+  formData.append('file',file);
+  return this.http.post<photo>(this.baseUrl+'members/add-photo' , formData)
+ }
+
+ SetMainPhoto(photo:photo){
+  return this.http.post(this.baseUrl+'members/set-main-photo/'+ photo.id ,{})
+ }
+
+ deletePhoto(photoId:number){
+  return this.http.delete(this.baseUrl+'members/delete-photo/'+photoId)
  }
 
 }

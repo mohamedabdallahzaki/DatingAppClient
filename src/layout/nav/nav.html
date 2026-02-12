@@ -31,8 +31,17 @@
   
     @if (!user) {
       <form #loginForm="ngForm" (ngSubmit)="login()" class="hidden lg:flex gap-3">
+       
         <input [(ngModel)]="creds.email" name="email" placeholder="Email" />
+        
+          @if(loginForm.controls['email']?.invalid && loginForm.control.get('email')?.touched) {
+            <span class="text-error text-sm">Email is required</span>
+          }
+      
         <input [(ngModel)]="creds.password" name="password" type="password" placeholder="Password" />
+        @if(loginForm.controls['password']?.invalid && loginForm.controls['password']?.touched){
+          <span class="text-error text-sm ">Pass not Valid </span>
+        }
         <button class="btn btn-primary">Login</button>
       </form>
     }
@@ -53,7 +62,7 @@
 
           <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box w-52 p-2 shadow">
             @for (theme of themeList; track $index) {
-              <li (click)="changetheme(theme)" class="text-black">{{ theme }}</li>
+              <li (click)="changetheme(theme)" class="text-white bg-black">{{ theme }}</li>
             }
           </ul>
         </div>
