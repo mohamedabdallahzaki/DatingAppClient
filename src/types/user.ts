@@ -14,5 +14,10 @@ export interface LoginCreds{
 export interface RegisterCreds {
     userName:string,
     email:string,
-    password:string
+    password:string,
+    confirmPassword:string,
+    gender:string,
+    dateOfBirth:Date,
+    city:string,
+    country:string
 }

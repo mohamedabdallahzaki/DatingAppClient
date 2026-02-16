@@ -1,4 +1,4 @@
-<div class="hero min-h-screen  w-full bg-linear-to-br from-base-100 via-base-200 to-base-300">
+<div class="hero min-h-screen w-full bg-linear-to-br from-base-100 via-base-200 to-base-300">
     @if(!registered()){
   <div class="hero-content text-center py-20">
      <div class="flex flex-col items-center align-middle max-w-3xl animate-fadeIn">
@@ -38,6 +38,6 @@
   </div>
     }
    @else {
-        <app-register (cancelRegister)="cancelRegistration($event)" class="w-full max-w-2xl text-2xl text-center mx-auto flex justify-center animate-fadeIn" ></app-register>
+        <app-register (cancelRegister)="cancelRegistration($event)" class=" mt-4 w-full max-w-2xl text-2xl text-center mx-auto flex  animate-fadeIn" ></app-register>
    }
 </div>

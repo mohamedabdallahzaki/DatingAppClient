@@ -1,8 +1,5 @@
 import { Routes } from '@angular/router';
 import { HomePage } from '../features/home-page/home-page';
-
-
-import { List } from '../features/list/list';
 import { authGuard } from '../core/guards/auth-guard';
 import { NotFound } from './shared/notFound/not-found/not-found';
 import { MembersList } from '../features/members/members-list/members-list';
@@ -33,7 +30,7 @@ export const routes: Routes = [
           {path:"message",component: MemberMessage, title:'Message'}
         ]
       },
-      { path: 'list', component: List },
+      { path: 'list', component: MembersList },
       { path: 'message', component: Message },
     ],
   },

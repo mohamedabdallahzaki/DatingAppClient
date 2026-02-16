@@ -1,0 +1,20 @@
+<label class="floating-label" [attr.for]="inputId">
+  <span class="bg-white text-black">{{ label }}</span>
+  <input
+    [attr.id]="inputId"
+    [attr.name]="inputName"
+    [max]="maxDate"
+    [type]="type"
+    class="input w-full border text-black rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-300 bg-gray-50 focus:bg-white"
+    [formControl]="control"
+    [class.border-red-500]="showInvalidState"
+    [class.focus:border-red-500]="showInvalidState"
+    [class.border-green-500]="showValidState"
+    [class.focus:border-green-500]="showValidState"
+    [class.border-gray-300]="!showInvalidState && !showValidState"
+    [placeholder]="label"
+  />
+  @if (errorMessage) {
+    <div class="text-left text-red-500 text-sm mt-1">{{ errorMessage }}</div>
+  }
+</label>

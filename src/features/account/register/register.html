@@ -1,4 +1,6 @@
-<div class="card w-full max-w-md bg-white rounded-2xl shadow-2xl flex flex-col mx-auto my-8 border border-gray-100 hover:shadow-3xl transition-shadow duration-300">
+<div
+  class="card w-[75vw] max-w-none bg-white rounded-2xl shadow-2xl flex flex-col mx-auto mt-24 mb-8 border border-gray-100 hover:shadow-3xl transition-shadow duration-300"
+>
   <div class="card-body p-8">
     <div class="text-center mb-6">
       <h2 class="card-title justify-center text-3xl sm:text-4xl text-primary mb-2 font-bold">
@@ -6,70 +8,147 @@
       </h2>
       <p class="text-gray-500 text-sm">Create your account to get started</p>
     </div>
-    
-    <form #registerForm="ngForm" class="flex flex-col gap-5 w-full">
-       @if (email.invalid && email.touched) {
-        <div class="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg text-sm flex items-center gap-2 animate-shake
-        ">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-          </svg>
-          Email is invalid
-        </div>
-      }
-      
-      <div class="form-control">
-        <label class="label">
-          <span class="label-text font-semibold text-gray-700">Email</span>
-        </label>
-        <input
+    <ul class="steps">
+      <li class="step step-primary">Register</li>
+      <li class="step" [class.step-primary]="currentSteps() == 2">Profile</li>
+    </ul>
+    @if (currentSteps() == 1) {
+      <form [formGroup]="registerForm" class="flex flex-col gap-5 steps">
+        <app-input-text
+          class="mt-2"
+          label="Email"
           type="email"
-          class="input w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 bg-gray-50 focus:bg-white"
-          name="email"
-          [(ngModel)]="creds.email"
-          placeholder="Enter your email"
-          required   
-          email
-          #email="ngModel"
-        />
-      </div>
-
-      <div class="form-control">
-        <label class="label">
-          <span class="label-text font-semibold text-gray-700">Display Name</span>
-        </label>
-        <input
+          formControlName="email"
+        ></app-input-text>
+        <app-input-text
+          label="display Name"
           type="text"
-          class="input w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 bg-gray-50 focus:bg-white"
-          name="displayName"
-          [(ngModel)]="creds.userName"
-          placeholder="Choose a display name"
-          minlength="12"
-        />
-      </div>
-      
-      <div class="form-control">
-        <label class="label">
-          <span class="label-text font-semibold text-gray-700">Password</span>
-        </label>
-        <input
+          formControlName="displayName"
+        ></app-input-text>
+        <app-input-text
+          label="password"
           type="password"
-          class="input w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 bg-gray-50 focus:bg-white"
-          name="password"
-          [(ngModel)]="creds.password"
-          placeholder="Create a password"
-          pattern=""
-        />
-      </div>
-    </form>
+          formControlName="password"
+        ></app-input-text>
+        <app-input-text
+          label="confirmPassword"
+          type="password"
+          formControlName="confirmPassword"
+        ></app-input-text>
+        @if (
+          registerForm.get('confirmPassword')?.hasError('passwordMatch') &&
+          registerForm.get('confirmPassword')?.touched
+        ) {
+          <div class="text-left text-red-500 text-sm">Confirm Password does not match password</div>
+        }
+        <div class="flex flex-col sm:flex-row gap-3 mt-6">
+          <button
+            type="button"
+            (click)="cancel()"
+            class="btn btn-outline btn-primary flex-1 hover:scale-105 transition-transform duration-300 border-2"
+          >
+            Cancel
+          </button>
 
-    <div class="flex flex-col sm:flex-row gap-3 mt-6">
-      <button (click)="Register()" class="btn btn-primary flex-1 hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-xl">
-        Register
-      </button>
-      <button (click)="cancel()" class="btn btn-outline btn-primary flex-1 hover:scale-105 transition-transform duration-300 border-2">
-        Cancel
-      </button>
-    </div>
+          @if (registerForm.invalid) {
+            <button
+              disabled
+              class="btn bg-gray-500 flex-1 hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-xl"
+            >
+              Register
+            </button>
+          }
+          @if (registerForm.valid) {
+            <button
+              type="button"
+              (click)="NextStep()"
+              [disabled]="registerForm.invalid"
+              class="btn btn-primary flex-1 hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-xl"
+            >
+              NextStep
+            </button>
+          }
+        </div>
+      </form>
+    }
+
+    @if (currentSteps() == 2) {
+      <form [formGroup]="profileForm" class="flex flex-col gap-5 steps">
+       <div class="flex items-center gap-4 text-black">
+        <div class="font-semibold">Gender:</div>
+        <label class="flex gap-3 items-center" >
+          <span >Male</span>
+          <input
+            id="gender-male"
+            name="gender"
+            class="radio radio-primary "
+            type="radio"
+            formControlName="gender"
+            value="male"
+          >
+        </label>
+         <label class="flex gap-3 items-center" >
+          <span >Female:</span>
+          <input
+            id="gender-female"
+            name="gender"
+            class="radio radio-primary "
+            type="radio"
+            formControlName="gender"
+            value="female"
+          >
+        </label>
+       </div>
+        <app-input-text
+          label="DataOfBrith"
+          type="date"
+          formControlName="dateOfBirth"
+          [maxDate]="MaxDate()"        
+        ></app-input-text>
+        <app-input-text label="City" type="text" formControlName="city"></app-input-text>
+        <app-input-text label="Country" type="text" formControlName="country"></app-input-text>
+
+        <div class="flex flex-col sm:flex-row gap-3 mt-6">
+          <button
+            type="button"
+            (click)="PrevStep()"
+            class="btn btn-outline btn-primary flex-1 transition-transform duration-300 border-2"
+          >
+            Cancel
+          </button>
+           @if (profileForm.invalid) {
+            <button
+              disabled
+              class="btn bg-gray-500 flex-1 hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-xl"
+            >
+              Register
+            </button>
+          }
+         @if (profileForm.valid) {
+           <button
+            type="button"
+            (click)="Register()"
+            [disabled]="registerForm.invalid || profileForm.invalid"
+            class="btn btn-primary flex-1 transition-transform duration-300 shadow-lg hover:shadow-xl"
+          >
+            Register
+          </button> 
+         }
+        </div>
+      </form>
+    }
+
+   @if(validtionErros().length > 0) {
+    <div class="alert alert-error mt-4">
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+        <span>
+          @for (error of validtionErros(); track $index) {
+            <div>{{error}}</div>
+          }
+        </span>
+      </div>
+     </div>
+   }
   </div>
 </div>

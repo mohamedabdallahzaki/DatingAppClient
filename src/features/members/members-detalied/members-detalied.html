@@ -1,9 +1,9 @@
-<section class="flex flex-col lg:flex-row gap-6 p-4  min-h-screen shadow-2xl">
+<section class="flex flex-col lg:flex-row gap-6 p-4 mt-20 min-h-screen shadow-2xl">
   @if( memberservice.member() ;as member ){
     <!-- Card Component -->
     <div class=" lg:w-1/4  sm:flex-1 w-full  lg:max-w-md  p-2 r bg-white shadow-2xl rounded-2xl overflow-hidden border  hover:shadow-3xl transition-shadow duration-300">
       <div class="relative">
-        <img class="w-full h-80 object-cover rounded-4xl" [src]="member.imageUrl" [alt]="member.displayName">
+        <img class="w-full h-80 object-cover rounded-4xl" [src]="member.imageUrl ?? '/user.png' " [alt]="member.displayName">
      
       </div>
 

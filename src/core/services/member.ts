@@ -13,7 +13,6 @@ export class MemberService {
   protected http = inject(HttpClient);
   private baseUrl = environment.baseUrl
   member = signal<member | null>(null)
-  accountService  = inject(Account)
   editMode = signal(false);
 
  

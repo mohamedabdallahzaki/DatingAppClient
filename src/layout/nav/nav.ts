@@ -1,4 +1,4 @@
-import { Component, Directive, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Account } from '../../core/services/account';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
@@ -20,18 +20,39 @@ export class Nav {
   protected toast = inject(Toast);
   protected creds: any = {};
 
-  protected selectedTheme = signal<string>(localStorage.getItem('theme') || 'light')
+  private readonly validThemes = new Set(themes);
+  protected selectedTheme = signal<string>(this.getInitialTheme())
   protected themeList = themes
+
+  constructor() {
+    effect(() => {
+      const theme = this.selectedTheme();
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+    });
+  }
+
+  isSelectedTheme(theme: string) {
+    return this.selectedTheme() === theme;
+  }
 
   changetheme(theme :string){
     this.selectedTheme.set(theme);
-    localStorage.setItem('theme',theme);
-    document.documentElement.setAttribute('data-theme',theme);
     const ele = document.activeElement as HTMLDivElement
     if(ele){
       ele.blur()
     }
    
+  }
+
+  private getInitialTheme(): string {
+    const storedTheme = localStorage.getItem('theme');
+    if (!storedTheme) return 'light';
+
+    // Support a common typo persisted in local storage.
+    if (storedTheme === 'drak') return 'dark';
+
+    return this.validThemes.has(storedTheme) ? storedTheme : 'light';
   }
 
 
